@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}
+    {{ user }}
+{% endblock %}
+{% block content %}
+    <ul class="list-unstyled">
+        {% for book in user.books.all %}
+            <li class="row">
+                <div class="col-md-2 text-right">
+                    <span><img width="75" height="100" src="{{ MEDIA_URL }}{{ book.cover }}"></span>
+                </div>
+                <div class="col-md-10">
+                    <blockquote>
+                        <div>
+                            <a href="{% url "articles:book_detail" pk=book.pk %}">{{ book.name }}</a>
+                        </div>
+                        <div>
+                            <span class="text-muted small">
+                                <span>创建时间: {{ book.date_created|naturaltime }}</span> &bullet;
+                                <span>篇幅: {{ book.articles.count }}</span>
+                            </span>
+                            <span class="text-muted small">
+                                <span>赞 <i class="fa fa-thumbs-o-up"></i></span>
+                            </span>
+                        </div>
+                    </blockquote>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

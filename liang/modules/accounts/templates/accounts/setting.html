@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load djangular_tags %}
+{% block title %}
+    设置
+{% endblock %}
+
+{% block content %}
+    <div>
+        <tabset>
+            <tab>
+                <tab-heading>基础设置</tab-heading>
+                <form class="single-form"
+                      data-action-url="{% url "accounts_setting_basic" %}"
+                      ng-submit="submit()"
+                      name="${{ basic_form.form_name }}"
+                      novalidate>
+
+                    {{ basic_form }}
+
+                    <button type="submit"
+                            class="btn btn-primary pull-right"
+                            ng-disabled="${{ basic_form.form_name }}.$invalid">保存
+                    </button>
+                </form>
+            </tab>
+            <tab>
+                <tab-heading>个人资料</tab-heading>
+                <form class="single-form"
+                      data-action-url="{% url "accounts_setting_basic" %}"
+                      ng-submit="submit()"
+                      name="$form">
+
+                    {{ profile_form }}
+
+                    {% verbatim %}
+                    <button type="submit" class="btn btn-primary pull-right" ng-disabled="$form.$invalid">保存
+                    </button>
+                    {% endverbatim %}
+                </form>
+            </tab>
+            <tab>
+                <tab-heading>修改密码</tab-heading>
+                That's right.
+            </tab>
+            <tab>
+                <tab-heading>其他</tab-heading>
+                That's right.
+            </tab>
+        </tabset>
+    </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+
+.idea
+db.sqlite3
+debug.log
+
+*.pyc
+
+static/bower_components
+static/storage

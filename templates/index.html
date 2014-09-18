@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% with book_new as book_list %}
+        {% include 'articles/book_default_list.html' %}
+    {% endwith %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% load comments %}
+<ul class="list-unstyled">
+    {% for book in book_list %}
+        <li>
+            <div>{{ book.owner }}: <a href="{% url "articles:book_detail" pk=book.pk %}">{{ book.name }}</a></div>
+            {% get_comment_count for book as comment_count %}
+            <div class="text-muted small">评
+                <a href="{{ book|comments_link }}">
+                    <span class="text-muted small">({{ comment_count }})</span>
+                </a>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

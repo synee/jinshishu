@@ -1,0 +1,31 @@
+<div id="user_bar" class="pull-right">
+    {% if user.is_authenticated %}
+        <span class="username">{{ user }}</span>
+        <div class="actions dropdown">
+            <span class="dropdown-toggle"><i class="fa fa-caret-down"></i></span>
+            <ul class="dropdown-menu">
+                <li class="nav">
+                    <a href="{% url 'articles:article_create' %}"><i class="fa fa-pencil"></i> 写一篇</a>
+                </li>
+                <li class="nav">
+                    <a href="{% url 'articles:book_create' %}"><i class="fa fa-book"></i> 添一本</a>
+                </li>
+                <li class="nav">
+                    <a href="{% url 'accounts_profile' %}"><i class="fa fa-user"></i> 个人中心</a>
+                </li>
+                <li class="nav">
+                    <a href="{% url 'accounts_setting' %}"><i class="fa fa-gear"></i> 设置</a>
+                </li>
+                <li class="nav">
+                    <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> 退出</a>
+                </li>
+            </ul>
+        </div>
+    {% else %}
+        <ul class="list-unstyled">
+            <li class="nav">
+                <a class="navbar-link" href="{% url 'login' %}">登录</a>
+            </li>
+        </ul>
+    {% endif %}
+</div>

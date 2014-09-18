@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}
+    {{ object }}
+{% endblock %}
+{% block content %}
+    <div id="article">
+        <h2>{{ object.title }}</h2>
+        <p class="article-info">
+            《 <a href="{% url "articles:book_detail" pk=object.book.pk %}">{{ object.book.name }}</a> 》 &bullet;
+            {{ object.date_created|naturaltime }} &bullet; {{ object.author }}
+            {% if object.author.pk == user.pk %}
+                &bullet; <a href="{% url "articles:article_update" pk=object.pk %}"><i class="fa fa-pencil"></i></a>
+            {% endif %}
+            &bullet; <span>{{ object.get_status_display }}</span>
+        </p>
+        <pre>{{ object.content }}</pre>
+    </div>
+{% endblock %}

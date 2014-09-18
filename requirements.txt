@@ -1,0 +1,14 @@
+textile
+south>=0.7.6
+django-blog-zinnia
+Django >= 1.6
+Pillow >= 2.0.0
+django-mptt >= 0.5.1
+django-tagging >= 0.3.2
+beautifulsoup4 >= 4.1.3
+pytz
+pyparsing >= 2.0.1
+django-xmlrpc >= 0.1.5
+django-angular
+qiniu
+mysql-python

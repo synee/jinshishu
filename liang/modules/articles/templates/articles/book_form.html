@@ -1,0 +1,17 @@
+{% extends 'articles/base_form.html' %}
+{% load tagging %}
+
+{% block content %}
+    <form method="post" id="articles_form"
+          class="single-form"
+          action="{{ view.request.path }}"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul class="list-unstyled">
+            {{ form }}
+        </ul>
+        <button type="submit" class="btn btn-block btn-primary">提交</button>
+    </form>
+{% endblock %}
+{#{% block basic_source %}#}
+{#{% endblock %}#}

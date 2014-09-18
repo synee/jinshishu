@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load humanize comments tagging %}
+{% block title %}
+    {{ object }}
+{% endblock %}
+{% block content %}
+    <div id="book_description">
+        <div class="row">
+            <div class="col-xs-2 text-right"><img width="75" height="100" src="{{ MEDIA_URL }}{{ object.cover }}"></div>
+            <blockquote class="col-xs-10">
+                <h1>{{ object.name }}</h1>
+                {% csrf_token %}
+                <p>
+                    <span>作者: <a href="{% url "people:detail" pk=object.owner.id %}">{{ object.owner }}</a></span>
+                </p>
+
+                <p class="text-muted small">
+                    <span>创建时间: {{ object.date_created|naturaltime }}</span> &bullet; {% ng_tagbar book %}
+                </p>
+            </blockquote>
+        </div>
+        {% render_comments_tag object %}
+    </div>
+    <div id="articles">
+        <ul class="list-unstyled row">
+            {% if book.owner.id == user.id %}
+                {% for article in object.articles.all %}
+                    <li class="col-md-4 chapter">
+                        <div>
+                            <a class="btn btn-block btn-default"
+                               href="{% url "articles:article_detail" pk=article.pk %}">{{ article.title }}</a>
+                        </div>
+                    </li>
+                {% endfor %}
+                <li class="col-md-4">
+                    <a class="btn btn-block btn-default"
+                       href="{% url "articles:article_create_in_book" book_id=book.id %}"
+                       class="btn btn-block btn-primary">
+                        <i class="fa fa-pencil"></i> 添加新章节
+                    </a>
+                </li>
+            {% else %}
+                {% for article in object.published_articles.all %}
+                    <li class="col-md-4 chapter">
+                        <div>
+                            <a class="btn btn-block btn-default"
+                               href="{% url "articles:article_detail" pk=article.pk %}">{{ article.title }}</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+
+{% endblock %}

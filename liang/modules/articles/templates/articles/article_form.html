@@ -1,0 +1,17 @@
+{% extends 'articles/base_form.html' %}
+
+{% block content %}
+    <form method="post"
+          name="{{ form.form_name }}"
+          id="articles_form"
+          class="single-form"
+          action="{{ view.request.path }}"
+          enctype="multipart/form-data">
+        {% if request.book %}
+        <h1>{{ request.book }}</h1>
+        {% endif %}
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-block btn-primary">提交</button>
+    </form>
+{% endblock %}

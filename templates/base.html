@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="{% block app_name %}jinshishu{% endblock %}">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <title>{% block title %}尽是书{% endblock %}</title>
+    <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bower_components/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css">
+    {% block main_style %}
+        <link rel="stylesheet" href="/static/application/theme/default.css">
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+    {% include 'layouts/header.html' %}
+{% endblock %}
+<div class="container">
+    {% block main %}
+        <div id="main" class="col-md-9">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="col-md-3">
+            {% block side %}
+                {% include 'layouts/side.html' %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+</div>
+</body>
+<script>
+    {% autoescape off %}
+        window.session = {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            user: {% if user.jsonify %}{{ user.jsonify }} {% else %} undefined {% endif %}
+        };
+    {% endautoescape %}
+</script>
+{% block basic_source %}
+    <script src="/static/bower_components/angular/angular.min.js"></script>
+    {#<script src="/static/bower_components/angular/angular.js"></script>#}
+    <script src="/static/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/static/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/static/application/angular/community.js"></script>
+    {% block main_script %}
+        <script src="/static/application/main.js"></script>
+    {% endblock %}
+{% endblock %}
+</html>

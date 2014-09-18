@@ -1,0 +1,190 @@
+@import "../../bower_components/bootstrap/less/variables";
+@import "../../bower_components/bootstrap/less/mixins";
+@import "ng";
+@import "community";
+
+@header-height: 50px;
+@font-family-hiragino: "Hiragino Sans GB", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-consoles: "consoles", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+.text-lighter {
+    color: @gray-lighter;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: @font-family-hiragino;
+    font-size: 16px;
+    .user-select(@select: none);
+}
+
+header {
+    color: #ffffff;
+    background-color: @gray-light;
+    height: @header-height;
+    line-height: @header-height;
+}
+
+input {
+    outline: none;
+}
+
+input[disabled='disabled'] {
+    background-color: @gray-lighter;
+}
+
+tagbar {
+    display: inline-block;
+    height: 20;
+    input {
+        border: 0;
+        border-bottom: 1px solid @gray-light;
+        height: 19px;
+        line-height: 15px;
+        padding: 0;
+    }
+}
+
+#home_link {
+    text-decoration: none;
+    &:hover {
+        color: #fff;
+    }
+}
+
+#user_bar {
+    display: inline-block;
+    padding: 0 20px;
+    > ul > li > a {
+        display: inline-block;
+        height: 100%;
+        padding: 0 10px;
+        color: #fff;
+        &:hover {
+            background-color: @gray-light - #333333;
+        }
+    }
+    .actions {
+        display: inline-block;
+        padding: 0 3px;
+        cursor: pointer;
+        .dropdown-toggle {
+            display: inline-block;
+            height: 100%;
+            padding: 0 10px;
+        }
+        &:hover {
+            // Show the menu
+            > .dropdown-toggle {
+                background-color: @gray-light - #111111;
+            }
+            > .dropdown-menu {
+                display: block;
+                left: inherit;
+                right: 0;
+                margin-top: 0;
+                .border-top-radius(0);
+                .border-bottom-radius(0);
+            }
+
+            // Remove the outline when :focus is triggered
+            > a {
+                outline: 0;
+            }
+        }
+    }
+}
+
+#main {
+    margin: 10px auto;
+    padding-top: 50px;
+}
+
+form.single-form {
+    width: 760px;
+    label, textarea, input, select {
+        width: 100%;
+        resize: none;
+        padding: 6px;
+        font-size: 14px;
+        outline: none;
+        color: @gray-light;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    label {
+        display: block;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+    textarea, input, select {
+        border: 1px solid @gray-lighter - #111111;
+        outline: 1px solid transparent;
+        .transition(@transition: all .5s);
+        &:focus {
+            border-color: @state-success-text + #333333;
+        }
+    }
+    button {
+        margin-top: 20px;
+    }
+
+    ul.errorlist {
+        list-style: none;
+        padding: 0;
+        li {
+            padding: 5px 10px;
+            color: @label-color;
+            background-color: @label-danger-bg;
+        }
+    }
+    .helptext {
+        color: @gray-lighter - #535353;
+        padding-left: 20px;
+    }
+}
+
+form.auth-form {
+    width: 320px;
+    margin: 10% auto;
+    p.other {
+        display: inline-block;
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+#book_description {
+    margin-bottom: 20px;
+    h1 {
+        margin: 0;
+    }
+    blockquote {
+        margin: 0;
+        p {
+            margin: 0;
+        }
+    }
+}
+
+#articles {
+    ul {
+//        li.chapter {
+//            background-color: @gray-lighter;
+//            line-height: 34px;
+//            cursor: pointer;
+//        }
+    }
+}
+
+#article {
+    .article-info {
+        font-size: 12px;
+        color: @gray-lighter - #525252;
+    }
+    pre {
+        .border-top-radius(0);
+        .border-bottom-radius(0);
+    }
+}

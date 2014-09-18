@@ -1,0 +1,12 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+    <form method="post" id="register_form" class="single-form auth-form">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-block btn-primary">注册</button>
+        <p class="other">
+            <span class="pull-right" style="margin-left: 10px"><a href="{% url 'login' %}">登录</a></span>
+            <span class="pull-right"><a href="{% url 'password_reset' %}">找回账户</a></span>
+        </p>
+    </form>
+{% endblock %}
