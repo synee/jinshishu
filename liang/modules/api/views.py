@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
 import json
-from django.core.urlresolvers import reverse
+
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.humanize.templatetags import humanize
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
 from django.db.models.fields import related as fields_related
 from django.shortcuts import render
 from django.template import TemplateDoesNotExist
 from django.views.decorators import http as http_decorators
 from django.views.generic import View
-from liang.modules.api.kits import jsonify
+
+from liang.base.decorator import prep_params, time_spend
+from liang.base.kits import jsonify
+from liang.base.views import ApiView
+from liang.modules.accounts.models import User
 
 
 def render_json(obj):
@@ -58,17 +64,6 @@ def view_call(request, **kwargs):
         return render(request, request.GET.get("template"), data)
     except TemplateDoesNotExist as e:
         raise
-
-
-# class DatasetView(View):
-#     def get(self, request, app, model, pk, **kwargs):
-#         ct = ContentType.objects.get_by_natural_key(app_label=app, model=model)
-#         model_class = ct.model_class()
-#         model_obj = model_class.objects.get(pk=pk)
-#         return
-#
-#     def post(self, request, app, model, pk, **kwargs):
-#         return
 
 
 class ModelCall(View):
@@ -216,3 +211,48 @@ def success_call(request, *args, **kwargs):
     return render_json({
         'success': True
     })
+
+
+class SearchApiView(ApiView):
+    prefix = 'search'
+
+    @prep_params(q='')
+    def search_book(self, request, q, page_index, page_size, *args, **kwargs):
+        from ..articles.models import Book
+
+        return Book.search(q=q)[page_index * page_size: page_index * page_size + page_size]
+
+    @prep_params(q='')
+    @time_spend
+    def search_article(self, request, q, page_index, page_size, *args, **kwargs):
+        from ..articles.models import Article
+
+        articles = Article.objects.raw("""SELECT a.*, u.nickname as author_name, b.name as book_name
+                                          FROM articles_article as a, auth_user as u, articles_book as b
+                                          WHERE a.author_id=u.id AND a.book_id=b.id
+                                                                 AND a.enable=1
+                                                                 AND a.title LIKE '%%%s%%'
+                                          ORDER BY date_updated DESC
+                                      """ % q)[page_index * page_size: page_index * page_size + page_size]
+        article_list = []
+        for article in articles:
+            d = article.__dict__
+            d.update({
+                'author': {
+                    'id': d['author_id']
+                },
+                'book': {
+                    'id': d['book_id'],
+                    'name': d['book_name']
+                },
+                'date_created': humanize.naturaltime(d['date_created']),
+                'date_updated': humanize.naturaltime(d['date_updated']),
+            })
+            article_list.append(d)
+        return article_list
+
+    @prep_params(q='')
+    def search_author(self, request, q, page_index, page_size, *args, **kwargs):
+        authors = User.objects.filter(Q(nickname__contains=q) | Q(username__contains=q))[
+                  page_index * page_size: page_index * page_size + page_size]
+        return authors

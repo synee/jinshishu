@@ -1,19 +1,43 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% block app_name %}article{% endblock %}
 {% block title %}
-    {{ object }}
+    {{ object.title }} - {{ object.book.name }}
 {% endblock %}
-{% block content %}
-    <div id="article">
-        <h2>{{ object.title }}</h2>
-        <p class="article-info">
-            《 <a href="{% url "articles:book_detail" pk=object.book.pk %}">{{ object.book.name }}</a> 》 &bullet;
-            {{ object.date_created|naturaltime }} &bullet; {{ object.author }}
-            {% if object.author.pk == user.pk %}
-                &bullet; <a href="{% url "articles:article_update" pk=object.pk %}"><i class="fa fa-pencil"></i></a>
-            {% endif %}
-            &bullet; <span>{{ object.get_status_display }}</span>
-        </p>
-        <pre>{{ object.content }}</pre>
+{% block main_style %}
+    <link rel="stylesheet" href="/static/application/theme/article.css">
+{% endblock %}
+{% block header %}{% endblock %}
+{% block main %}
+    <div>
+        {% include 'layouts/navbar.html' %}
+        <div class="container">
+            <div class="row">
+                <div id="article" class="col-md-8">
+                    <h2>{{ object.title }}</h2>
+
+                    <p class="article-info">
+                    <span>
+                        <a href="{% url "articles:book_detail" pk=object.book.pk %}">
+                            《{{ object.book.name }}》
+                        </a>
+                    </span>
+                        <span> &bullet; {{ object.author }}</span>
+                        <span class="text-muted small"> &bullet; {{ object.date_created|naturaltime }}</span>
+                    </p>
+
+                    <div id="content">
+                        {{ object.content|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+{% block main_script %}
+    <script>
+        window.session = window.session || {};
+        window.session.article = {{ object.to_json|safe }};
+    </script>
+    <script src="/static/application/pages/article.js"></script>
 {% endblock %}

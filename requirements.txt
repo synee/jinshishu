@@ -12,3 +12,4 @@ django-xmlrpc >= 0.1.5
 django-angular
 qiniu
 mysql-python
+BeautifulSoup

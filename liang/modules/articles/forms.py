@@ -4,7 +4,7 @@ from app.forms.angular_model import NgModelFormMixin
 from liang.modules.articles.models import Book, Article
 
 
-class BookForm(NgModelFormMixin, forms.ModelForm):
+class BookForm(forms.ModelForm):
     def __init__(self, request=None, *args, **kwargs):
         self.request = request
         super(BookForm, self).__init__(*args, **kwargs)
@@ -14,7 +14,7 @@ class BookForm(NgModelFormMixin, forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ['cover', 'name', 'owner']
+        fields = ['cover', 'name', 'owner', 'summary']
 
 
 class ArticleForm(NgModelFormMixin, forms.ModelForm):
@@ -34,7 +34,7 @@ class ArticleForm(NgModelFormMixin, forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['book', 'title', 'content', 'author']
+        fields = ['book', 'title', 'content', 'author', 'status']
 
 
 

@@ -8,6 +8,7 @@ urlpatterns = patterns(
     '',
     # Examples:
     url(r'^$',          'app.views.home', name='home'),
+    url(r'^writer$',    'app.views.writer', name='writer'),
     url(r'^explore$',   ExploreView.as_view(), name='explore'),
     url(r'^admin/',     include(admin.site.urls)),
     url(r'^api/',       include('liang.modules.api.urls')),

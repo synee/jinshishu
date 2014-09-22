@@ -1,55 +1,82 @@
 {% extends 'base.html' %}
-{% load humanize comments tagging %}
+{% load humanize tagging comments %}
+{% block app_name %}book{% endblock %}
 {% block title %}
-    {{ object }}
+    {{ object.title }}
 {% endblock %}
-{% block content %}
-    <div id="book_description">
-        <div class="row">
-            <div class="col-xs-2 text-right"><img width="75" height="100" src="{{ MEDIA_URL }}{{ object.cover }}"></div>
-            <blockquote class="col-xs-10">
-                <h1>{{ object.name }}</h1>
-                {% csrf_token %}
-                <p>
-                    <span>作者: <a href="{% url "people:detail" pk=object.owner.id %}">{{ object.owner }}</a></span>
-                </p>
+{% block main_style %}
+    <link rel="stylesheet" href="/static/application/theme/book.css">
+{% endblock %}
+{% block header %}{% endblock %}
+{% block main %}
+    <div id="mainContainer" ng-controller="BookController">
+        {% include 'layouts/navbar.html' %}
+        <div class="container">
+            <div class="col-md-8">
+                <div id="book_description">
+                    <div class="row">
+                        <div class="col-xs-2 text-right"><img width="75" height="100"
+                                                              src="{{ MEDIA_URL }}{{ object.cover }}">
+                        </div>
+                        <blockquote class="col-xs-10">
+                            <h1>{{ object.name }}</h1>
+                            {% csrf_token %}
+                            <p>
+                            <span>作者:
+                                <a href="{% url "people:detail" pk=object.owner.id %}">
+                                    {{ object.author_name }}
+                                </a>
+                            </span>
+                            </p>
 
-                <p class="text-muted small">
-                    <span>创建时间: {{ object.date_created|naturaltime }}</span> &bullet; {% ng_tagbar book %}
-                </p>
-            </blockquote>
+                            <div class="text-muted small">
+                                <rating class='ng-rate'
+                                        ng-model="book.rate"
+                                        max="5"
+                                        readonly="isReadonly"
+                                        on-hover="hoveringOver(value)"
+                                        on-leave="overStar = null">
+                                </rating>
+                                {% verbatim %}
+                                <span>{{ book.rate }} 分</span>
+                                {% endverbatim %}
+                            </div>
+                            <div class="text-muted small">
+                                <span>创建时间: {{ object.date_created|naturaltime }}</span>
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+                <div id="articles">
+                    <ul class="list-unstyled">
+                        {% for article in object.articles.all %}
+                            <li class="article-item">
+                                <div>
+                                <span>
+                                    <a href="{% url 'articles:article_detail' pk=article.pk %}" class="title">
+                                        {{ article.title }}
+                                    </a>
+                                </span>
+                                </div>
+                                <div class="text-muted small">
+                                    <span>{{ article.date_updated|naturaltime }}</span>
+                                </div>
+                                {% if article.summary %}
+                                    <div class="small">{{ article.summary }}</div>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        {% render_comments_tag object %}
     </div>
-    <div id="articles">
-        <ul class="list-unstyled row">
-            {% if book.owner.id == user.id %}
-                {% for article in object.articles.all %}
-                    <li class="col-md-4 chapter">
-                        <div>
-                            <a class="btn btn-block btn-default"
-                               href="{% url "articles:article_detail" pk=article.pk %}">{{ article.title }}</a>
-                        </div>
-                    </li>
-                {% endfor %}
-                <li class="col-md-4">
-                    <a class="btn btn-block btn-default"
-                       href="{% url "articles:article_create_in_book" book_id=book.id %}"
-                       class="btn btn-block btn-primary">
-                        <i class="fa fa-pencil"></i> 添加新章节
-                    </a>
-                </li>
-            {% else %}
-                {% for article in object.published_articles.all %}
-                    <li class="col-md-4 chapter">
-                        <div>
-                            <a class="btn btn-block btn-default"
-                               href="{% url "articles:article_detail" pk=article.pk %}">{{ article.title }}</a>
-                        </div>
-                    </li>
-                {% endfor %}
-            {% endif %}
-        </ul>
-    </div>
-
 {% endblock %}
+{% block main_script %}
+    <script>
+        window.session.book = {{ object.to_json|safe }};
+    </script>
+    <script src="/static/application/pages/book.js"></script>
+{% endblock %}
+
+

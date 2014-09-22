@@ -1,0 +1,13 @@
+<li class="book-item"
+    ng-repeat="book in bookList"
+    ng-controller="BookItemController"
+    ng-init="book = book">
+    <div>
+        <a target="_blank" href="/p/book/{{ book.id }}">{{ book.name }}</a>
+        &bullet; {{ book.author_name }}
+    </div>
+    <div class="text-muted small">
+        <span>{{ book.rate }}分</span> , <span class="text-muted small">最后更新: {{ book.date_updated }}</span>
+    </div>
+    <p class="small">{{ book.summary }}</p>
+</li>

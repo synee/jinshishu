@@ -1,0 +1,26 @@
+@import "../../bower_components/bootstrap/less/variables";
+@import "../../bower_components/bootstrap/less/mixins";
+
+@font-face {
+    font-family: 'fangzheng lt cx';
+    src: url(/static/fonts/fzltht/fangzheng%20lt%20cx.TTF);
+}
+
+@theme-color-bg: @btn-primary-bg;
+.ng-rate, input, textarea {
+    outline: none;
+}
+
+.ng-rate {
+    cursor: pointer;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    .user-select(@select: none);
+}
+
+.border-radius(@r) {
+    .border-top-radius(@r);
+    .border-bottom-radius(@r);
+}

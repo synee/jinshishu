@@ -1,0 +1,22 @@
+<li ng-repeat="article in articleList" class="article-item">
+    <div>
+        <span>
+            <a href="/p/{{ article.id }}" class="title">{{ article.title }}</a>
+        </span>
+        <span class="small">
+            <span class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;in</span>
+            <a target="_blank" href="/p/book/{{ article.book.id }}">《{{ article.book.name }}》</a>
+        </span>
+        <span class="small">
+            <span class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;by</span>
+            <span ng-if="!article.author_name">匿名</span>
+            <a target="_blank"
+               href="/p/{{ article.author.id }}"
+               ng-if="article.author_name">{{ article.author_name }}</a>
+        </span>
+    </div>
+    <div class="text-muted small">
+        <span>{{ article.date_updated }}</span>
+    </div>
+    <div class="small">{{ article.summary }}</div>
+</li>

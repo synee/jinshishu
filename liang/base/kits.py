@@ -5,14 +5,15 @@ import decimal
 from django.db import models
 from django.db.models.query import QuerySet
 from django.db.models import base as models_base
+from django.http import HttpResponse
 from django.utils.functional import SimpleLazyObject
-
-
-_temp_func = lambda *args: ""
+from liang.base.decorator import time_spend
 
 
 def _dumps_model(obj):
     res = obj.__dict__
+    if hasattr(obj, 'dict'):
+        return obj.dict
     for key, val in res.items():
         if isinstance(val, models.Model) or isinstance(val, SimpleLazyObject):
             res[key] = res.pop(key).__dict__
@@ -37,9 +38,6 @@ def _dumps_default(obj):
     if isinstance(obj, decimal.Decimal):
         return int(obj)
 
-    if type(obj) == type(_temp_func):
-        return "[function]"
-
     if isinstance(obj, QuerySet):
         return list(obj)
 
@@ -51,8 +49,14 @@ def _dumps_default(obj):
 
     if isinstance(obj, datetime.datetime):
         return str(obj)
-    return None
+
+    return str(obj)
 
 
 def jsonify(obj):
     return json.dumps(obj, default=_dumps_default)
+
+
+def render_json(obj):
+    return HttpResponse(jsonify(obj), content_type='application/json')
+

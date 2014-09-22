@@ -2,14 +2,42 @@
 (function() {
   var app;
 
-  app = angular.module("search", []);
-
-  app.controller("searchBoxCtrl", function($scope) {
-    return $scope.search = function(words, $event) {
-      if ($event.keyCode === 13 && words) {
-        return console.log(words);
+  app = angular.module("search", ['ngRoute', 'ngExtends', 'ui.bootstrap', 'jinshishu.service', 'jinshishu.public']).controller("SearchController", function($scope, $timeout, ArticleService, SearchService) {
+    $scope.keywords = '';
+    $scope.searchedWords = [];
+    $scope.onScroll = function($scrollY) {
+      if ($scrollY > 64) {
+        return $scope.navClass = "fixed";
+      } else {
+        return $scope.navClass = "";
       }
     };
+    $scope.selectTab = function(tab) {
+      return $scope.currentTab = tab;
+    };
+    return $scope.search = function() {
+      if ($scope.searching) {
+        return;
+      }
+      $scope.searching = true;
+      return $timeout(function() {
+        var keywords, tab;
+        keywords = $scope.keywords;
+        tab = $scope.currentTab;
+        return SearchService.search(tab, keywords).success(function(resp) {
+          $scope["" + tab + "List"] = resp;
+          return $scope.searchedWords.push({
+            tab: tab,
+            keywords: keywords,
+            results: resp
+          });
+        })["finally"](function() {
+          return $scope.searching = false;
+        });
+      }, 500);
+    };
+  }).controller('BookItemController', function($scope) {
+    return console.log($scope.book.date_updated, ":", $scope.book.date_created);
   });
 
 }).call(this);

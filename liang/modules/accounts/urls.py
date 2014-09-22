@@ -5,9 +5,7 @@ from . import views
 urlpatterns = patterns(
     '',
 
-    url(regex=r'^profile$',
-        view=views.ProfileView.as_view(),
-        name='accounts_profile'),
+    url(regex=r'^$', view=views.ProfileView.as_view(), name='accounts_profile'),
 
     url(regex=r'^setting$',
         view=views.SettingView.as_view(),

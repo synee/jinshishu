@@ -1,24 +1,29 @@
 {
-  "name": "jinshishu",
-  "version": "0.0.0",
-  "authors": [
-    "Leon <liang.shao@binqsoft.com>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "angular": "*",
-    "angular-route": "*",
-    "angular-cookies": "*",
-    "angular-bootstrap": "*",
-    "bootstrap": "*",
-    "animate.css": "*",
-    "fontawesome": "*"
-  }
+    "name": "jinshishu",
+    "version": "0.0.0",
+    "authors": [
+        "Leon <liang.shao@binqsoft.com>"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "angular": "*",
+        "angular-route": "*",
+        "angular-cookies": "*",
+        "angular-hotkeys": "*",
+        "angular-bootstrap": "*",
+        "angular-draggable": "https://github.com/fatlinesofcode/ngDraggable.git",
+        "ng-file-upload": "*",
+        "ng-file-upload-shim": "*",
+        "textAngular": "*",
+        "bootstrap": "*",
+        "animate.css": "*",
+        "fontawesome": "*"
+    }
 }

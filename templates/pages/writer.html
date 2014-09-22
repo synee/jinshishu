@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block app_name %}writer{% endblock %}
+{% block title %}工作台 - {% endblock %}
+{% block main_style %}
+    <link rel="stylesheet" href="/static/application/theme/writer.css">
+{% endblock %}
+{% block header %}{% endblock %}
+{% block main %}
+    <div id="writeDashboard" ng-controller="DashboardController" ng-class="showMenu ? 'showMenu' : ''">
+        {% verbatim %}
+        <tabset class="book-stack">
+            <tab ng-repeat="book in books"
+                 active="book.active"
+                 heading="{{ book.name }}"
+                 ng-context-menu="{'delete': deleteBook()}"
+                 ng-right-click="bookContextMenu(book)"
+                 ng-drag="['book', book]"
+                 select="selectBook(book)">
+                <tabset class="article-stack">
+                    <tab ng-repeat="article in book.articles"
+                         active="article.active"
+                         ng-drag="['article', article]"
+                         heading="{{ article.title }}"
+                         select="selectArticle(article)">
+                        <div class="action-group">
+                            <span class="action"
+                                  ng-class="article.hasChanged?'changed':''"
+                                  ng-click="updateArticle(article); article.hasChanged=false">保存</span>
+                            <span class="action"
+                                  ng-if="article.status !== 2"
+                                  ng-disabled="(article.status === 2)"
+                                  ng-click="article.hasChanged=article.status != 2; article.status=2;  updateArticle(article);">发表</span>
+                            <span class="action"
+                                  ng-if="article.status === 2"
+                                  ng-disabled="(article.status !== 2)"
+                                  ng-click="article.hasChanged=article.status != 0; article.status=0;  updateArticle(article);">收回</span>
+                        </div>
+                        <div class="article-header">
+                            <h3>
+                                <input ng-model="article.title" ng-change="article.hasChanged=true">
+                            </h3>
+                        </div>
+                        <div class="article-body">
+                            <div class="contentEditor"
+                                 hotkey="Cmd+S"
+                                 invoke="updateArticle(article)"
+                                 text-angular
+                                 ta-toolbar="[['h3', 'h4', 'h5', 'indent', 'outdent', 'pre', 'quote', 'ul', 'ol', 'insertImage', 'insertLink', 'html']]"
+                                 ng-model="article.content"
+                                 ng-change="article.hasChanged=true"></div>
+                        </div>
+                    </tab>
+                </tabset>
+            </tab>
+        </tabset>
+        <div id="menuBar" ng-click="showMenu=!showMenu"><i class="glyphicon glyphicon-align-justify"></i></div>
+        <div id="plusBar">
+            <i class="glyphicon glyphicon-plus"></i>
+            <ul class="list-unstyled">
+                <li ng-click="addBook()">添加一本书</li>
+                <li ng-click="addArticle()">添加一篇文</li>
+            </ul>
+        </div>
+        <div id="trashBar"
+             ng-click="onDelete(['article', currentArticle])"
+             ng-drop="onDelete($data,$event)">
+            <i class="glyphicon glyphicon-trash"></i>
+        </div>
+        {% endverbatim %}
+    </div>
+{% endblock %}
+{% block main_script %}
+    <script src="/static/bower_components/textAngular/src/textAngularSetup.js"></script>
+    <script src="/static/bower_components/textAngular/src/textAngular.js"></script>
+    <script src="/static/bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
+    <script src="/static/bower_components/angular-hotkeys/angular-hotkeys.min.js"></script>
+    <script src="/static/application/pages/writer.js"></script>
+{% endblock %}

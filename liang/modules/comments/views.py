@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.contenttypes.models import ContentType
 from django.views.generic import View
-from liang.modules.api.kits import jsonify
+from liang.base.kits import jsonify
 from liang.modules.api.views import render_json
 from liang.modules.comments import CustomComment as Comment
 

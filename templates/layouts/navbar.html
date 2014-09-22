@@ -1,0 +1,40 @@
+{% verbatim %}
+<div id="navbar" ng-scroll="onScroll($scrollY);" ng-class="navClass" ng-controller="NavController">
+    <div class="pull-left">
+        <a class="nav" href="/">首页</a>
+    </div>
+    <div class="pull-right  navbar-right">
+        <div ng-if="!user.id">
+            <a class="nav" href="/auth/login/">登录</a>
+            <a class="nav" target="_blank" href="/writer">作者入口</a>
+        </div>
+        <div ng-if="user.id">
+            <div class="btn-group" dropdown>
+                <a class="nav" target="_blank" href="/accounts">{{ user.nickname || user.username }}</a>
+                <a class="nav dropdown-toggle">
+                    <span class="caret"></span>
+                    <span class="sr-only">Split button!</span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a class="nav" target="_blank" href="/accounts/">
+                            <i class="glyphicon glyphicon-user"></i> 个人中心
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav" target="_blank" href="/writer">
+                            <i class="glyphicon glyphicon-dashboard"></i> 工作台
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="/auth/logout/">
+                            <i class="glyphicon glyphicon-log-out"></i> 退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}

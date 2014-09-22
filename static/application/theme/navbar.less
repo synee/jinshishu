@@ -1,0 +1,47 @@
+@import "base";
+
+#navbar {
+    @nav-height: 40px;
+    text-align: right;
+    line-height: @nav-height;
+    background-color: @theme-color-bg;
+    z-index: 99;
+    display: inline-block;
+    width: 100%;
+    a {
+        color: #fff;
+        line-height: @nav-height;
+        display: inline-block;
+        padding: 0 10px;
+        cursor: pointer;
+        &[aria-expanded="true"], &.active, &:hover {
+            background-color: @theme-color-bg - #222222;
+        }
+    }
+    .btn-group{
+        height: 100%;
+        float: right;
+        > .nav{
+            float: left;
+        }
+        .dropdown-menu > li > a{
+            color: @gray-light;
+            width: 100%;
+            &:hover{
+                color: #fff;
+            }
+        }
+    }
+    .navbar-right{
+        .dropdown-menu{
+            left: initial;
+            right: 0;
+        }
+    }
+    &.fixed {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        .animation(@animation: navToFixed 1s);
+    }
+}

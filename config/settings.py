@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
     'django.contrib.humanize',
+    # 'debug_toolbar',
     'mptt',
     'app',
     'liang.modules.api',
@@ -170,6 +171,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.static',
     'django.core.context_processors.media',
+    'liang.modules.api.context_processors.contents',
 )
 
 

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block app_name %}search{% endblock %}
+{% block title %}搜索{% endblock %}
+{% block main_style %}
+    <link rel="stylesheet" href="/static/application/theme/search.css">
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block main %}
+    <div id="main" ng-controller="SearchController">
+        <div id="searchBox">
+            <input id="searchInput"
+                   ng-model="keywords"
+                   ng-change="search()"
+                   placeholder="书名 / 作者 / 标签">
+        </div>
+        {% include 'layouts/navbar.html' %}
+        {% verbatim %}
+        <div class="navbar-placeholder {{ navClass }}"></div>
+        {% endverbatim %}
+        <div class="container">
+            <div class="row">
+                <tabset id="searchContainer" class="col-md-8">
+                    <tab heading="文章" select="selectTab('article'); search()">
+                        <ul class="list-unstyled"
+                            ng-include="'/static/application/templates/articles/article_search_item.html'"></ul>
+                    </tab>
+                    <tab heading="书籍" select="selectTab('book'); search()">
+                        <ul class="list-unstyled"
+                            ng-include="'/static/application/templates/books/book_search_item.html'"></ul>
+                    </tab>
+                    <tab heading="作者" select="selectTab('author'); search()"></tab>
+                    <tab heading="标签" select="selectTab('tag'); search()"></tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block main_script %}
+    <script src="/static/application/angular/angular-service.js"></script>
+    <script src="/static/application/pages/search.js"></script>
+{% endblock %}

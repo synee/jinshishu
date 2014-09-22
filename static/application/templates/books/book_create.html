@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h3 class="modal-title">添加书籍</h3>
+</div>
+<div class="modal-body">
+    <input ng-model="book.name" placeholder="书籍名称" required="">
+    <input ng-model="book.author_name" placeholder="作者名">
+    <textarea ng-model="book.summary" placeholder="内容概要"></textarea>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-submit" ng-click="ok()">确定</button>
+    <button class="btn btn-cancel" ng-click="cancel()">取消</button>
+</div>

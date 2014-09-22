@@ -1,17 +1,8 @@
-@import "../../bower_components/bootstrap/less/variables";
-@import "../../bower_components/bootstrap/less/mixins";
-
-@font-face {
-    font-family: 'fangzheng lt cx';
-    src: url(/static/fonts/fzltht/fangzheng%20lt%20cx.TTF);
-}
-
-input {
-    outline: none;
-}
+@import "base";
 
 #searchBox {
-
+    display: inline-block;
+    width: 100%;
 }
 
 #searchInput {
@@ -23,3 +14,49 @@ input {
     font-size: 20px;
     letter-spacing: 1px;
 }
+
+@import "navbar";
+
+.navbar-placeholder {
+    height: 0;
+    &.fixed {
+        position: inherit;
+        height: 30px;
+    }
+}
+
+@media (max-width: 640px) {
+    #searchInput {
+        width: 100%;
+    }
+}
+
+#searchContainer {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    .nav-tabs {
+        border: 0;
+    }
+    .nav-tabs > li > a {
+        cursor: pointer;
+        border: 0;
+        .transition(@transition: all 0.2s);
+    }
+    .nav-tabs > li > a:hover {
+        padding: 7px 15px 8px;
+        background-color: #fff;
+        border-bottom: 5px @btn-success-bg + #111111 solid;
+    }
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        color: #555;
+        cursor: default;
+        padding: 5px 15px 10px;
+        background-color: #fff;
+        border-bottom: 5px @btn-success-bg - #111111 solid;
+    }
+}
+
+@import "book-item";
+@import "article-item";
+@import "author-item";

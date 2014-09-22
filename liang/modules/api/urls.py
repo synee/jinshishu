@@ -16,9 +16,9 @@ urlpatterns = patterns(
         view=views.view_call,
         name='api_view_call'),
 
-    # url(regex=r'^dataset/(?P<app>\S+).(?P<model>\S+)/(?P<pk>\d+)/(?P<method>\S+)$',
-    #     view=views.DatasetView.as_view(),
-    #     name='dataset'),
+    url(regex=r'^search_(?P<action>\S+)$',
+        view=views.SearchApiView.as_view(),
+        name='api_search'),
 
     url(regex=r'^model_call/(?P<contenttype_id>\d+)/(?P<action>\S+)$',
         view=views.ModelCall.as_view(),
