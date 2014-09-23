@@ -130,6 +130,7 @@ class Article(BaseModel):
                                     title_index=title_index)
         else:
             article = cls(book=book, author=user, title=query_title)
+            article.author_name = book.author_name
             article.save()
             return article
 

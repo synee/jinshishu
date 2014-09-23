@@ -14,7 +14,7 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ['cover', 'name', 'owner', 'summary']
+        fields = ['cover', 'author_name', 'name', 'owner', 'summary']
 
 
 class ArticleForm(NgModelFormMixin, forms.ModelForm):

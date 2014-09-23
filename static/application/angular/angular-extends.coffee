@@ -1,6 +1,6 @@
 angular.module("ngExtends", [])
 
-.value('$dragData', {$event: null , $data: null})
+.value('$dragData', {$event: null, $data: null})
 
 .directive("ngDrag", ($parse, $dragData)->
     link: (scope, element, attrs)->

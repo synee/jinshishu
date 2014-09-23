@@ -1,12 +1,36 @@
-{% extends 'registration/base.html' %}
-{% block content %}
-    <form method="post" id="register_form" class="single-form auth-form">
+{% extends 'registration/wall_base.html' %}
+{% load i18n %}
+{% block title %}注册{% endblock %}
+{% block main %}
+    <form method="post" class="single-form auth-form" name="$login_form">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit" class="btn btn-block btn-primary">注册</button>
-        <p class="other">
-            <span class="pull-right" style="margin-left: 10px"><a href="{% url 'login' %}">登录</a></span>
-            <span class="pull-right"><a href="{% url 'password_reset' %}">找回账户</a></span>
-        </p>
+        <ul>
+            <li>
+                <p>{{ form.email.errors }}</p>
+                <label>邮箱:</label>
+                {{ form.email }}
+            </li>
+            <li>
+                <p>{{ form.password.errors }}</p>
+                <label>密码:</label>
+                {{ form.password }}
+            </li>
+            <li>
+                <p>{{ form.password_confirm.errors }}</p>
+                <label>确认密码:</label>
+                {{ form.password_confirm }}
+            </li>
+            <li>
+                <button type="submit" class="btn btn-block btn-primary">注册</button>
+                <p class="other">
+                    <span class="pull-right">
+                        <a href="{% url 'password_reset' %}">重置密码</a>
+                    </span>
+                    <span class="pull-right" style="margin-left: 10px">
+                        <a href="/auth/login/">登录</a>
+                    </span>
+                </p>
+            </li>
+        </ul>
     </form>
 {% endblock %}

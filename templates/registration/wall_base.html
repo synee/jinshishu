@@ -1,6 +1,6 @@
 {% load i18n %}
 <head>
-    <title>登录 - 尽是书</title>
+    <title>{% block title %}{% endblock %} - 尽是书</title>
     <style>
         #wall {
             position: fixed;
@@ -32,6 +32,8 @@
         form > ul > li {
             padding: 15px 5px;
             min-height: 36px;
+            display: inline-block;
+            width: 100%;
         }
 
         label {
@@ -41,12 +43,12 @@
             background-color: #fff;
             line-height: 36px;
             text-align: right;
-            width: 80px;
+            width: 100px;
         }
 
         input, button {
             height: 36px;
-            width: 330px;
+            width: 310px;
             padding: 10px;
             border: none;
             outline: none;
@@ -76,49 +78,30 @@
             line-height: 24px;
         }
 
+        a {
+            color: #fff;
+        }
+
         .errorlist {
             color: #fff;
             background-color: #cf3f3f;
-            margin: 10px 0;
-            padding: 10px;
+            margin: 0 0 10px;
+            padding: 0;
             list-style: none;
+            width: 410px;
+        }
+
+        .errorlist li {
+            width: 100%;
+            padding: 10px;
         }
     </style>
+    {% block style %}
+    {% endblock %}
 </head>
 <body>
 <div id="wall">
-
-    <form action="" method="post" class="single-form auth-form">
-        {% csrf_token %}
-        <ul>
-            {{ form.email.errors }}
-            <li>
-                <p>{% trans "Forgotten your password? Enter your email address below, and we'll email instructions for setting a new one." %}</p>
-            </li>
-            {{ form.as_ul }}
-            <li>
-                <button class="btn btn-block btn-primary" type="submit"
-                        value="{% trans 'Reset my password' %}">{% trans 'Reset my password' %}</button>
-
-            </li>
-        </ul>
-    </form>
-    {#    <form method="post" class="single-form auth-form" name="$login_form">#}
-    {#        {% csrf_token %}#}
-    {#        <ul>#}
-    {#            {{ form.as_ul }}#}
-    {#            <li>#}
-    {#                <button type="submit" class="btn btn-block btn-primary" ng-disabled="$login_form.$invalid">登录</button>#}
-    {#                <p class="other">#}
-    {#                    <span class="pull-right">#}
-    {#                        <a href="{% url 'password_reset' %}">重置密码</a>#}
-    {#                    </span>#}
-    {#                    <span class="pull-right" style="margin-left: 10px">#}
-    {#                        <a href="{% url "accounts_register" %}">注册</a>#}
-    {#                    </span>#}
-    {#                </p>#}
-    {#            </li>#}
-    {#        </ul>#}
-    {#    </form>#}
+    {% block main %}{% endblock %}
 </div>
 </body>
+

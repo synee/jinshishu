@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for config project.
 
@@ -19,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'ty4yiuv*lkz)0o9#6*%cnswoppl5#_(lf-d(kzn-$&_ya(7&gx'
-SITE_ID = 1
+SITE_ID = 2
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,7 +82,7 @@ DATABASES = {
 
 # DATABASES = {
 # 'default': {
-#         'ENGINE': 'django.db.backends.mysql',
+# 'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'jinshishu',
 #         'USER': 'root',
 #         'PASSWORD': '',
@@ -112,28 +113,23 @@ LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    # 'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    # 'django.contrib.auth.hashers.BCryptPasswordHasher',
-    # 'django.contrib.auth.hashers.SHA1PasswordHasher',
-    # 'django.contrib.auth.hashers.MD5PasswordHasher',
-    # 'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher',
-    # 'django.contrib.auth.hashers.CryptPasswordHasher'
-)
 
 # Email
-# EMAIL_HOST = 'smtp.brohere.com'
-# EMAIL_PORT = 25
-# EMAIL_HOST_USER = 'notify@brohere.com'
-# EMAIL_HOST_PASSWORD = 'brohere2014'
-EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_HOST = 'smtp.brohere.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = 'leon.shao@brohere.com'
-EMAIL_HOST_PASSWORD = 'loveyu1314'
-EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'notify@brohere.com'
+EMAIL_HOST_PASSWORD = 'brohere2014'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_SUBJECT_PREFIX = u'尽是书'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+#
+# EMAIL_HOST = 'smtp-mail.outlook.com'
+# EMAIL_PORT = 25
+# EMAIL_HOST_USER = 'leon.shao@brohere.com'
+# EMAIL_HOST_PASSWORD = 'loveyu1314'
+# EMAIL_USE_TLS = True
+# # EMAIL_USE_SSL = True
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

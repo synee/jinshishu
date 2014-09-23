@@ -1,11 +1,18 @@
-{% extends "registration/base.html" %}
+{% extends "registration/wall_base.html" %}
 {% load i18n %}
 
 
-{% block content %}
+{% block main %}
+    <form>
+        <ul>
+            <li style="text-align: left">
+                <p style="width: 100%">{% trans "Thanks for spending some quality time with the Web site today." %}</p>
+            </li>
+            <li style="text-align: left">
+                <p style="width: 100%"><a href="{% url 'login' %}">{% trans 'Log in again' %}</a></p>
+            </li>
+        </ul>
+    </form>
 
-<p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
-
-<p><a href="{% url 'login' %}">{% trans 'Log in again' %}</a></p>
 
 {% endblock %}

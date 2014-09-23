@@ -40,7 +40,7 @@
                                 <input ng-model="article.title" ng-change="article.hasChanged=true">
                             </h3>
                         </div>
-                        <div class="article-body">
+                        <div class="article-body" ng-window-resize="">
                             <div class="contentEditor"
                                  hotkey="Cmd+S"
                                  invoke="updateArticle(article)"

@@ -1,14 +1,22 @@
-{% extends 'registration/base.html' %}
+{% extends "registration/wall_base.html" %}
 {% load i18n %}
-
-{% block content %}
+{% block title %}登录{% endblock %}
+{% block main %}
     <form method="post" class="single-form auth-form" name="$login_form">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit" class="btn btn-block btn-primary" ng-disabled="$login_form.$invalid">登录</button>
-        <p class="other">
-            <span class="pull-right" style="margin-left: 10px"><a href="{% url "accounts_register" %}">注册</a></span>
-            <span class="pull-right"><a href="{% url 'password_reset' %}">重置密码</a></span>
-        </p>
+        <ul>
+            {{ form.as_ul }}
+            <li>
+                <button type="submit" class="btn btn-block btn-primary" ng-disabled="$login_form.$invalid">登录</button>
+                <p class="other">
+                    <span class="pull-right">
+                        <a href="{% url 'password_reset' %}">重置密码</a>
+                    </span>
+                    <span class="pull-right" style="margin-left: 10px">
+                        <a href="{% url "accounts_register" %}">注册</a>
+                    </span>
+                </p>
+            </li>
+        </ul>
     </form>
 {% endblock %}
